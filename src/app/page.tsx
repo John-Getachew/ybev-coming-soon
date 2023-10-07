@@ -1,113 +1,158 @@
-import Image from 'next/image'
+"use client";
+import { Nunito } from "@next/font/google";
+import Image from "next/image";
+
+const nunito_bold = Nunito({
+  subsets: ["latin"],
+  weight: "600",
+});
+
+import localFont from "@next/font/local";
+import { useEffect, useState } from "react";
+const myFont = localFont({ src: "./fonts/grovana/Grovana BoldRound.otf" });
 
 export default function Home() {
+  const [countdown, setCountdown] = useState({
+    days: 44,
+    hours: 18,
+    minutes: 32,
+  });
+
+  // Function to calculate the remaining time
+  const calculateTimeRemaining = () => {
+    const now = new Date();
+    const targetDate = new Date("2023-12-31T23:59:59"); // Set your target date here
+    const timeDifference = targetDate - now;
+
+    if (timeDifference > 0) {
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor(
+        (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+      );
+      setCountdown({ days, hours, minutes });
+    }
+  };
+
+  useEffect(() => {
+    const countdownInterval = setInterval(calculateTimeRemaining, 60000); // Update every minute
+    calculateTimeRemaining(); // Initial calculation
+    return () => clearInterval(countdownInterval);
+  }, []);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+    <main className="px-10 py-10">
+      <div className="flex flex-col justify-center items-center md:flex-row md:justify-between">
+        <span className="pb-10 md:pb-0">
+          <img
+            src="/assets/logos/ybev-secondary-logo-inverted-rgb-900px-w-72ppi 1.png"
+            alt="My Image"
+            className="logo"
+          />
+        </span>
+        <span
+          className={`${nunito_bold.className} text-2xl md:text-2xl lg:text-3xl custom-text-yellow font-medium`}
+        >
+          {countdown.days} days : {countdown.hours} hrs : {countdown.minutes}{" "}
+          mins
+        </span>
+      </div>
+
+      <div className="flex flex-col-reverse md:flex-row justify-between pt-10 pb-8 lg:pb-20 items-center">
+        <span
+          style={{ lineHeight: "1.3" }}
+          className={`${myFont.className} mt-8 md:mt-0 text-center md:text-left text-3xl md:text-4xl lg:text-6xl font-Grovana-Bold`}
+        >
+          THE EV RENTAL HUB FOR RIDESHARE DRIVERS.
+        </span>
+        <span className="">
+          <img
+            src="/assets/images/coming-soon-tesla.png"
+            alt="My Image"
+            className="car"
+          />
+        </span>
+      </div>
+
+      <div className="flex flex-col-reverse md:flex-row justify-between items-center">
+        <div className="flex-grow w-1/1 md:flex-1 md:pt-0">
+          <div className="italic mb-4 text-gray-300 text-1xl md:text-2xl">
+            The rental experience you deserve, get started today.
+          </div>
+          <div className="flex w-[100%] md:w-[75%]">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="flex-1 py-4 px-4 rounded-l-md border border-gray-100 border-r-transparent focus:outline-none focus:ring focus:border-yellow-300 bg-transparent"
             />
-          </a>
+            <button
+              type="submit"
+              className="bg-yellow-500 text-white font-semibold py-3 px-6 rounded-r-md right-0 top-0 bottom-0"
+            >
+              Subscribe
+            </button>
+          </div>
+        </div>
+
+        <div className="hidden md:block">
+          <div className="flex justify-items-between space-x-3 md:space-x-10 mb-4">
+            <span className="flex space-x-1">
+              <Image
+                src="/assets/logos/ri_money-dollar-circle-line.svg"
+                alt="Dollar Sign"
+                width={20}
+                height={20}
+              />
+              <strong>COMPETITIVE RATES</strong>
+            </span>
+            <span className="flex space-x-1">
+              <Image
+                src="/assets/logos/fontisto_taxi.svg"
+                alt="Dollar Sign"
+                width={20}
+                height={20}
+              />
+              <strong>MULTI-PLATFORM SUPPORT</strong>
+            </span>
+            <span className="flex space-x-1">
+              <Image
+                src="/assets/logos/ic_baseline-phone-android.svg"
+                alt="Dollar Sign"
+                width={20}
+                height={20}
+              />
+              <strong>MOBILE APP ACCESS</strong>
+            </span>
+          </div>
+
+          <div className="flex justify-center space-x-3 md:space-x-10">
+            <span className="flex space-x-1">
+              <Image
+                src="/assets/logos/mdi_payment-clock.svg"
+                alt="Dollar Sign"
+                width={20}
+                height={20}
+              />
+              <strong>FLEXIBLE PAYMENT OPTIONS</strong>
+            </span>
+            <span className="flex space-x-1">
+              <Image
+                src="/assets/logos/mdi_support.svg"
+                alt="Dollar Sign"
+                width={20}
+                height={20}
+              />
+              <strong>DEDICATED 24/7 DRIVER ASSISTANCE</strong>
+            </span>
+          </div>
         </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className="flex fixed justify-center bottom-8 left-0 right-0">
+        <p>© Copyrights YourBlack EV | All Rights Reserved</p>
       </div>
     </main>
-  )
+  );
 }

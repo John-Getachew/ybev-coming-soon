@@ -6,6 +6,12 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --counter-yellow: #dfaf34;
+}
+
+.custom-text-yellow {
+  color: #dfaf34;
+  opacity: 1;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,12 +22,70 @@
   }
 }
 
+@font-face {
+  font-family: "Grovana-Bold";
+  src: url("/assets/fonts/grovana/Grovana Bold.otf") format("opentype");
+  /* You can specify other font properties like font-weight, font-style here */
+}
+
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: white;
+  font-family: "Nunito", "Grovana-Bold", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #000000;
+}
+
+.header-line-height {
+  line-height: 0.4;
+}
+
+#header-font-size {
+  font-size: clamp(16px, 5vw, 24px);
+}
+
+.logo {
+  width: 350px;
+  height: auto;
+}
+.car {
+  width: 2000px;
+  height: auto;
+}
+
+/* Media query for screens smaller than 640px (e.g., mobile) */
+@media (max-width: 639px) {
+  .logo {
+    width: 350px; /* Adjust the width for smaller screens */
+  }
+  .car {
+    width: 2000px;
+  }
+}
+
+/* Media query for screens between 640px and 767px (e.g., small tablets) */
+@media (min-width: 640px) and (max-width: 767px) {
+  .logo {
+    width: 350px; /* Adjust the width for small tablets */
+  }
+  .car {
+    width: 400px;
+  }
+}
+
+/* Media query for screens between 768px and 1023px (e.g., large tablets) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .logo {
+    width: 320px; /* Adjust the width for large tablets */
+  }
+  .car {
+    width: 900px;
+  }
+}
+
+/* Media query for screens larger than 1023px (e.g., desktop) */
+@media (min-width: 1024px) {
+  .logo {
+    width: 350px; /* Keep the original width for desktop */
+  }
 }
