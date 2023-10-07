@@ -20,8 +20,8 @@ export default function Home() {
 
   // Function to calculate the remaining time
   const calculateTimeRemaining = () => {
-    const now = new Date();
-    const targetDate = new Date("2023-12-31T23:59:59"); // Set your target date here
+    const now: any = new Date();
+    const targetDate: any = new Date("2023-12-31T23:59:59"); // Set your target date here
     const timeDifference = targetDate - now;
 
     if (timeDifference > 0) {
