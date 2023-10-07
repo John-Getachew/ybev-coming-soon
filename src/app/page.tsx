@@ -78,7 +78,7 @@ export default function Home() {
 
       <div className="flex flex-col-reverse md:flex-row justify-between items-center">
         <div className="flex-grow w-1/1 md:flex-1 md:pt-0">
-          <div className="italic mb-4 text-gray-300 text-1xl md:text-2xl">
+          <div className="rental-text italic mb-4 text-gray-300">
             The rental experience you deserve, get started today.
           </div>
           <div className="flex w-[100%] md:w-[75%]">

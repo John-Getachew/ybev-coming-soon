@@ -53,10 +53,20 @@ body {
   height: auto;
 }
 
+.rental-text {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 /* Media query for screens smaller than 640px (e.g., mobile) */
 @media (max-width: 639px) {
   .logo {
     width: 350px; /* Adjust the width for smaller screens */
+  }
+  .rental-text {
+    font-size: 1.2rem;
+    line-height: 2rem;
+    text-align: center;
   }
 }
 
@@ -67,6 +77,11 @@ body {
   }
   .car {
     width: 400px;
+  }
+  .rental-text {
+    font-size: 1.2rem;
+    line-height: 2rem;
+    text-align: center;
   }
 }
 
