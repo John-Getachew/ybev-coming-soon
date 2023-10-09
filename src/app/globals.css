@@ -36,8 +36,10 @@ body {
   background-color: #000000;
 }
 
-.header-line-height {
-  line-height: 0.4;
+.hero-header {
+  line-height: 1.2;
+  font-size: clamp(2rem, 4vw, 6rem);
+  margin-bottom: 8px;
 }
 
 #header-font-size {
@@ -58,6 +60,11 @@ body {
   line-height: 2rem;
 }
 
+.list-animation {
+  opacity: 1;
+  transition: opacity 2s ease-in-out;
+}
+
 /* Media query for screens smaller than 640px (e.g., mobile) */
 @media (max-width: 639px) {
   .logo {
@@ -66,6 +73,9 @@ body {
   .rental-text {
     font-size: 1.2rem;
     line-height: 2rem;
+    text-align: center;
+  }
+  .hero-header {
     text-align: center;
   }
 }
@@ -81,6 +91,9 @@ body {
   .rental-text {
     font-size: 1.2rem;
     line-height: 2rem;
+    text-align: center;
+  }
+  .hero-header {
     text-align: center;
   }
 }

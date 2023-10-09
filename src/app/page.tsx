@@ -18,6 +18,14 @@ export default function Home() {
     minutes: 32,
   });
 
+  let [activeIndex, setActiveIndex] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prevIndex) => (prevIndex + 1) % services.length);
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
+
   // Function to calculate the remaining time
   const calculateTimeRemaining = () => {
     const now: any = new Date();
@@ -42,8 +50,31 @@ export default function Home() {
     return () => clearInterval(countdownInterval);
   }, []);
 
+  const services = [
+    {
+      iconSrc: "/assets/logos/ri_money-dollar-circle-line.svg",
+      title: "COMPETITIVE RATES",
+    },
+    {
+      iconSrc: "/assets/logos/fontisto_taxi.svg",
+      title: "MULTI-PLATFORM SUPPORT",
+    },
+    {
+      iconSrc: "/assets/logos/ic_baseline-phone-android.svg",
+      title: "MOBILE APP ACCESS",
+    },
+    {
+      iconSrc: "/assets/logos/mdi_payment-clock.svg",
+      title: "FLEXIBLE PAYMENT OPTIONS",
+    },
+    {
+      iconSrc: "/assets/logos/mdi_support.svg",
+      title: "DEDICATED 24/7 DRIVER ASSISTANCE",
+    },
+  ];
+
   return (
-    <main className="px-10 py-10">
+    <main className="px-6 pt-8 pb-4 md:px-8 md:py-8 lg:px-10 lg:py-10">
       <div className="flex flex-col justify-center items-center md:flex-row md:justify-between">
         <span className="pb-10 md:pb-0">
           <img
@@ -60,14 +91,31 @@ export default function Home() {
         </span>
       </div>
 
-      <div className="flex flex-col-reverse md:flex-row justify-between pt-10 pb-8 lg:pb-20 items-center">
-        <span
-          style={{ lineHeight: "1.3" }}
-          className={`${myFont.className} mt-8 md:mt-0 text-center md:text-left text-3xl md:text-4xl lg:text-6xl font-Grovana-Bold`}
-        >
-          THE EV RENTAL HUB FOR RIDESHARE DRIVERS.
-        </span>
-        <span className="">
+      <div className="flex flex-col-reverse md:flex-row justify-between mt-2 md:mt-20 lg:pb-20 items-center md:items-end">
+        <div className="flex-1">
+          <span className={`${myFont.className} flex mt-8 md:mt-0 hero-header`}>
+            THE EV RENTAL HUB FOR RIDESHARE DRIVERS.
+          </span>
+          <div className="flex-grow w-1/1 md:flex-1 md:pt-0">
+            <div className="rental-text italic mb-4 text-gray-300">
+              The rental experience you deserve, get started today.
+            </div>
+            <div className="flex w-[100%] md:w-[75%]">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 py-4 px-4 rounded-l-md border border-gray-100 border-r-transparent focus:outline-none focus:ring focus:border-yellow-300 bg-transparent"
+              />
+              <button
+                type="submit"
+                className="bg-yellow-500 text-white font-semibold py-3 px-6 rounded-r-md right-0 top-0 bottom-0"
+              >
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </div>
+        <span className="flex-1">
           <img
             src="/assets/images/coming-soon-tesla.png"
             alt="My Image"
@@ -76,83 +124,74 @@ export default function Home() {
         </span>
       </div>
 
-      <div className="flex flex-col-reverse md:flex-row justify-between items-center">
-        <div className="flex-grow w-1/1 md:flex-1 md:pt-0">
-          <div className="rental-text italic mb-4 text-gray-300">
-            The rental experience you deserve, get started today.
-          </div>
-          <div className="flex w-[100%] md:w-[75%]">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 py-4 px-4 rounded-l-md border border-gray-100 border-r-transparent focus:outline-none focus:ring focus:border-yellow-300 bg-transparent"
-            />
-            <button
-              type="submit"
-              className="bg-yellow-500 text-white font-semibold py-3 px-6 rounded-r-md right-0 top-0 bottom-0"
-            >
-              Subscribe
-            </button>
-          </div>
-        </div>
-
-        <div className="hidden md:block">
-          <div className="flex justify-items-between space-x-3 md:space-x-10 mb-4">
-            <span className="flex space-x-1">
-              <Image
-                src="/assets/logos/ri_money-dollar-circle-line.svg"
-                alt="Dollar Sign"
-                width={20}
-                height={20}
-              />
-              <strong>COMPETITIVE RATES</strong>
-            </span>
-            <span className="flex space-x-1">
-              <Image
-                src="/assets/logos/fontisto_taxi.svg"
-                alt="Dollar Sign"
-                width={20}
-                height={20}
-              />
-              <strong>MULTI-PLATFORM SUPPORT</strong>
-            </span>
-            <span className="flex space-x-1">
-              <Image
-                src="/assets/logos/ic_baseline-phone-android.svg"
-                alt="Dollar Sign"
-                width={20}
-                height={20}
-              />
-              <strong>MOBILE APP ACCESS</strong>
-            </span>
+      <div className="flex flex-col-reverse md:flex-row justify-between items-center mt-8 md:mt-12">
+        <div className="hidden md:block flex-1">
+          <div className="flex justify-center space-x-3 md:space-x-10 mb-4">
+            {services
+              .filter((_, index) => index < 3)
+              .map((service) => (
+                <ServiceDesktop
+                  show={true}
+                  iconSrc={service.iconSrc}
+                  title={service.title}
+                />
+              ))}
           </div>
 
           <div className="flex justify-center space-x-3 md:space-x-10">
-            <span className="flex space-x-1">
-              <Image
-                src="/assets/logos/mdi_payment-clock.svg"
-                alt="Dollar Sign"
-                width={20}
-                height={20}
-              />
-              <strong>FLEXIBLE PAYMENT OPTIONS</strong>
-            </span>
-            <span className="flex space-x-1">
-              <Image
-                src="/assets/logos/mdi_support.svg"
-                alt="Dollar Sign"
-                width={20}
-                height={20}
-              />
-              <strong>DEDICATED 24/7 DRIVER ASSISTANCE</strong>
-            </span>
+            {services
+              .filter((service, index) => index >= 3)
+              .map((service) => (
+                <ServiceDesktop
+                  show={true}
+                  iconSrc={service.iconSrc}
+                  title={service.title}
+                />
+              ))}
           </div>
         </div>
+        <div className="md:hidden block relative w-[100%]">
+          {services.map((service, index) => (
+            <Service
+              key={service.title}
+              show={index === activeIndex}
+              iconSrc={service.iconSrc}
+              title={service.title}
+            />
+          ))}
+        </div>
       </div>
-
-      <div className="flex fixed justify-center bottom-8 left-0 right-0">
+      <div className="flex justify-center mt-20 md:mt-10 text-center">
         <p>© Copyrights YourBlack EV | All Rights Reserved</p>
       </div>
     </main>
   );
 }
+interface ServiceProps {
+  iconSrc: string;
+  title: string;
+  show?: boolean;
+}
+const Service = (props: ServiceProps) => {
+  return (
+    <span
+      className={`flex space-x-1 absolute left-0 right-0 justify-center text-center`}
+      style={{
+        opacity: props.show ? 1 : 0,
+        transition: "opacity 0.5s ease-in-out",
+      }}
+    >
+      <Image src={props.iconSrc} alt="Dollar Sign" width={20} height={20} />
+      <strong>{props.title}</strong>
+    </span>
+  );
+};
+
+const ServiceDesktop = (props: ServiceProps) => {
+  return (
+    <span className={`flex space-x-1`}>
+      <Image src={props.iconSrc} alt="Dollar Sign" width={20} height={20} />
+      <strong>{props.title}</strong>
+    </span>
+  );
+};
