@@ -131,7 +131,7 @@ export default function Home() {
               .filter((_, index) => index < 3)
               .map((service) => (
                 <ServiceDesktop
-                  show={true}
+                  key={service.title}
                   iconSrc={service.iconSrc}
                   title={service.title}
                 />
@@ -143,7 +143,7 @@ export default function Home() {
               .filter((service, index) => index >= 3)
               .map((service) => (
                 <ServiceDesktop
-                  show={true}
+                  key={service.title}
                   iconSrc={service.iconSrc}
                   title={service.title}
                 />
