@@ -8,7 +8,7 @@ const nunito_bold = Nunito({
 });
 
 import localFont from "@next/font/local";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 const myFont = localFont({ src: "./fonts/grovana/Grovana BoldRound.otf" });
 
 export default function Home() {
@@ -26,10 +26,12 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  // Function to calculate the remaining time
+  const [email, setEmail] = useState("");
+  const [isEmailIncorrect, setIsEmailIncorrect] = useState(false);
+
   const calculateTimeRemaining = () => {
     const now: any = new Date();
-    const targetDate: any = new Date("2023-12-31T23:59:59"); // Set your target date here
+    const targetDate: any = new Date("2023-12-31T23:59:59");
     const timeDifference = targetDate - now;
 
     if (timeDifference > 0) {
@@ -45,8 +47,8 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const countdownInterval = setInterval(calculateTimeRemaining, 60000); // Update every minute
-    calculateTimeRemaining(); // Initial calculation
+    const countdownInterval = setInterval(calculateTimeRemaining, 60000);
+    calculateTimeRemaining();
     return () => clearInterval(countdownInterval);
   }, []);
 
@@ -72,6 +74,19 @@ export default function Home() {
       title: "DEDICATED 24/7 DRIVER ASSISTANCE",
     },
   ];
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    const isEmailFormatCorrect = emailRegex.test(email);
+    if (!isEmailFormatCorrect) {
+      setIsEmailIncorrect(true);
+      return;
+    } else {
+      setIsEmailIncorrect(false);
+      console.log(email, "Subscribed");
+    }
+  };
 
   return (
     <main className="px-6 pt-8 pb-4 md:px-8 md:py-8 lg:px-10 lg:py-10">
@@ -100,11 +115,14 @@ export default function Home() {
             <div className="rental-text italic mb-4 text-gray-300">
               The rental experience you deserve, get started today.
             </div>
-            <div className="flex w-[100%] md:w-[75%]">
+            <form onSubmit={handleSubmit} className="flex w-[100%] md:w-[75%]">
               <input
                 type="email"
+                required
                 placeholder="Enter your email"
-                className="flex-1 py-4 px-4 rounded-l-md border border-gray-100 border-r-transparent focus:outline-none focus:ring focus:border-yellow-300 bg-transparent"
+                className="flex-1 py-4 px-4 rounded-l-md border border-gray-100 bg-transparent"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <button
                 type="submit"
@@ -112,8 +130,15 @@ export default function Home() {
               >
                 Subscribe
               </button>
-            </div>
+            </form>
           </div>
+          <p
+            className={`pt-1 text-[0.9rem] italic text-red-300 ${
+              isEmailIncorrect ? "block" : "hidden"
+            }`}
+          >
+            Please provide a valid email
+          </p>
         </div>
         <span className="flex-1">
           <img

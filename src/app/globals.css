@@ -36,6 +36,14 @@ body {
   background-color: #000000;
 }
 
+input {
+  border-right: none;
+}
+input:focus {
+  outline: none;
+  border-color: #dfaf34;
+}
+
 .hero-header {
   line-height: 1.2;
   font-size: clamp(2rem, 4vw, 6rem);
